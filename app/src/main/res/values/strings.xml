@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Hogotchi</string>
+    <string name="default_notification_channel_id" translatable="false">hogotchi_channel</string>
+    <string name="default_notification_channel_name" translatable="true">Hogotchi Alerts</string>
+</resources>

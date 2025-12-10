@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f54e00</color>
+    <color name="colorPrimaryDark">#1d1f27</color>
+    <color name="colorAccent">#ffeb3b</color>
+    <color name="posthog_orange">#f54e00</color>
+    <color name="posthog_yellow">#ffeb3b</color>
+    <color name="posthog_dark">#1d1f27</color>
+</resources>
