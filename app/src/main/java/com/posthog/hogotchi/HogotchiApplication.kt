@@ -14,6 +14,8 @@ class HogotchiApplication : Application() {
             host = "http://10.0.2.2:8010"
         ).apply {
             debug = true
+            flushAt = 1  // Flush after every event
+            flushIntervalSeconds = 5  // Also flush every 5 seconds
         }
 
         PostHogAndroid.setup(this, config)

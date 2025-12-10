@@ -142,8 +142,43 @@ class MainActivity : ComponentActivity() {
             }
             val token = task.result
             Log.d(TAG, "FCM Token: $token")
+
+            // Log the distinct ID being used
+            val distinctId = PostHog.distinctId()
+            Log.d(TAG, "PostHog distinct ID: $distinctId")
+
             PostHog.setFcmToken(token)
-            Log.d(TAG, "FCM Token sent to PostHog")
+            Log.d(TAG, "setFcmToken called (async - check PostHog logs for result)")
+
+            // Also manually call the endpoint to test
+            Thread {
+                try {
+                    val url = java.net.URL("http://10.0.2.2:8010/sdk/push_subscriptions/register/")
+                    Log.d(TAG, "Manual test: connecting to $url")
+                    val conn = url.openConnection() as java.net.HttpURLConnection
+                    conn.requestMethod = "POST"
+                    conn.setRequestProperty("Content-Type", "application/json")
+                    conn.doOutput = true
+                    conn.connectTimeout = 10000
+                    conn.readTimeout = 10000
+                    val body = """{"api_key":"phc_2NTTOtu0cozbsG1dovE4v4eFviuA93I0mFvCybWuDRP","distinct_id":"$distinctId","token":"$token","platform":"android"}"""
+                    Log.d(TAG, "Manual test: sending body length=${body.length}")
+                    conn.outputStream.write(body.toByteArray())
+                    conn.outputStream.flush()
+                    conn.outputStream.close()
+                    val responseCode = conn.responseCode
+                    Log.d(TAG, "Manual test: response code=$responseCode, content-length=${conn.contentLength}")
+                    val response = if (responseCode in 200..299) {
+                        conn.inputStream.bufferedReader().readText()
+                    } else {
+                        conn.errorStream?.bufferedReader()?.readText() ?: "no error stream"
+                    }
+                    Log.d(TAG, "Manual FCM registration: $responseCode - '$response'")
+                    conn.disconnect()
+                } catch (e: Exception) {
+                    Log.e(TAG, "Manual FCM registration failed: ${e.javaClass.simpleName}: ${e.message}", e)
+                }
+            }.start()
         }
     }
 
