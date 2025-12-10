@@ -91,6 +91,9 @@ dependencies {
 
     implementation("androidx.work:work-runtime:2.11.0")
 
+    // PostHog SDK
+    implementation("com.posthog:posthog-android:3.+")
+
     // Testing dependencies
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
     androidTestImplementation("androidx.test:runner:1.7.0")

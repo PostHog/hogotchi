@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.posthog.PostHog
 
 class HogotchiMessagingService : FirebaseMessagingService() {
 
@@ -38,6 +39,8 @@ class HogotchiMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
+        PostHog.setFcmToken(token)
+        Log.d(TAG, "New FCM token sent to PostHog")
     }
 
     private fun sendNotification(title: String, body: String, action: String?) {
@@ -57,7 +60,8 @@ class HogotchiMessagingService : FirebaseMessagingService() {
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.ic_stat_ic_notification)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setColor(getColor(R.color.posthog_orange))
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)

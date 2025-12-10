@@ -60,6 +60,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.google.firebase.Firebase
 import com.google.firebase.messaging.messaging
+import com.posthog.PostHog
 import com.posthog.hogotchi.ui.theme.HogotchiTheme
 import com.posthog.hogotchi.ui.theme.PostHogOrange
 import com.posthog.hogotchi.ui.theme.PostHogYellow
@@ -141,6 +142,8 @@ class MainActivity : ComponentActivity() {
             }
             val token = task.result
             Log.d(TAG, "FCM Token: $token")
+            PostHog.setFcmToken(token)
+            Log.d(TAG, "FCM Token sent to PostHog")
         }
     }
 
