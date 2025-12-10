@@ -172,7 +172,7 @@ fun HogotchiScreen(viewModel: HogViewModel) {
     ) {
         // Header
         Text(
-            text = "Hog-otchi",
+            text = "Hogotchi",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             color = PostHogOrange

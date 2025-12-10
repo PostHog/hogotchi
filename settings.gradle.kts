@@ -9,11 +9,10 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
     }
 }
-
-includeBuild("../posthog-android")
 
 include(":app")

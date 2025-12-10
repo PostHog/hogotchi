@@ -1,6 +1,7 @@
 package com.posthog.hogotchi
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.posthog.PostHog
@@ -65,26 +66,9 @@ class HogViewModel(application: Application) : AndroidViewModel(application) {
                 "level" to newState.level
             )
 
-            when (newState.mood) {
-                HogMood.CRITICAL -> {
-                    PostHog.capture("hog_critical", properties)
-                }
-                HogMood.HUNGRY -> {
-                    PostHog.capture("hog_hungry", properties)
-                }
-                HogMood.SLEEPY -> {
-                    PostHog.capture("hog_sleepy", properties)
-                }
-                HogMood.HAPPY -> {
-                    PostHog.capture("hog_happy", properties)
-                }
-                HogMood.PLAYFUL -> {
-                    PostHog.capture("hog_playful", properties)
-                }
-                HogMood.IDLE -> {
-                    PostHog.capture("hog_idle", properties)
-                }
-            }
+            val eventName = "hog_${newState.mood.name.lowercase()}"
+            Log.d("Hogotchi", "Mood changed! Capturing $eventName (was ${oldState.mood})")
+            PostHog.capture(eventName, properties = properties)
         }
     }
 
@@ -139,7 +123,8 @@ class HogViewModel(application: Application) : AndroidViewModel(application) {
             )
 
             // Track the action
-            PostHog.capture("hog_action", mapOf(
+            Log.d("Hogotchi", "Capturing hog_action: $actionName, energy=${finalState.energy}, hunger=${finalState.hunger}")
+            PostHog.capture("hog_action", properties = mapOf(
                 "action" to actionName,
                 "hog_name" to finalState.name,
                 "happiness" to finalState.happiness,
@@ -151,7 +136,7 @@ class HogViewModel(application: Application) : AndroidViewModel(application) {
 
             // Track level up separately
             if (leveledUp) {
-                PostHog.capture("hog_level_up", mapOf(
+                PostHog.capture("hog_level_up", properties = mapOf(
                     "hog_name" to finalState.name,
                     "new_level" to finalState.level
                 ))

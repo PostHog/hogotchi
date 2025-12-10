@@ -14,12 +14,12 @@ tasks {
 
 android {
     namespace = "com.posthog.hogotchi"
-    compileSdk = 36
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.google.firebase.quickstart.fcm"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
@@ -58,12 +58,12 @@ android {
 dependencies {
     implementation("androidx.annotation:annotation:1.9.1")
     implementation("androidx.vectordrawable:vectordrawable-animated:1.2.0")
-    implementation("androidx.core:core-ktx:1.17.0")
+    implementation("androidx.core:core-ktx:1.12.0")
 
     // Required when asking for permission to post notifications (starting in Android 13)
-    implementation("androidx.activity:activity-ktx:1.12.1")
-    implementation("androidx.activity:activity-compose:1.12.1")
-    implementation("androidx.fragment:fragment-ktx:1.8.9")
+    implementation("androidx.activity:activity-ktx:1.8.2")
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     implementation("com.google.android.material:material:1.13.0")
 
@@ -89,7 +89,7 @@ dependencies {
 
     implementation("com.google.firebase:firebase-installations:19.0.1")
 
-    implementation("androidx.work:work-runtime:2.11.0")
+    implementation("androidx.work:work-runtime:2.9.0")
 
     // PostHog SDK
     implementation("com.posthog:posthog-android:3.+")

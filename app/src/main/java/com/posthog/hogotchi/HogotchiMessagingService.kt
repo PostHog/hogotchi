@@ -40,7 +40,7 @@ class HogotchiMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
         PostHog.setFcmToken(token)
-        Log.d(TAG, "New FCM token sent to PostHog")
+        Log.d(TAG, "FCM token sent to PostHog")
     }
 
     private fun sendNotification(title: String, body: String, action: String?) {
